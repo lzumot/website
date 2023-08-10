@@ -50,14 +50,12 @@ Nix-powered Development Experience powered by [Devbox](https://www.jetpack.io/de
 
 Bluefin includes a NGC container that includes the latest [stable PyTorch from Nvidia](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch) on top of Ubuntu LTS. It includes python3, pip3 , pandas, matplotlib, and scikit-learn. The additional pip packages are commonly used ones but not comprehensive. Only pip is used and mamba or conda were not tested yet.
 
-## Pre-requisites
+You must already be using `bluefin-dx-nvidia` as its meant for those GPUs and has nvidia container toolkit support. 
+Try running `nvidia-smi` in a regular `distrobox create --nvidia -i ubuntu` to check that all works fine if you want to test before downloading the large nvidia container. 
 
-You must already be using `bluefin-dx-nvidia` as its meant for those GPUs and has nvidia container toolkit support. Try running              
-    nvidia-smi
+To create the box use the following command. Note that this container is large (20+ GB!):
 
-in a regular `distrobox create --nvidia -i ubuntu` to check that all works fine if you want to test before downloading the large nvidia container. To create the box use the following command. Note that this container is large (20+ GB!):
-
-    just mlbox
+    just distrobox-mlbox
 
 To enter the working environment:
 
@@ -73,13 +71,13 @@ To check if GPUs are seen and enter the python repl to run:
 
 Some possible tests can be to run a transformers inference or training job or git clone a pytorch benchmarks repo and run single or multi gpu commands: E.g. to test multi-gpu setup on two 3090s:
 
-´´´
-git clone https://github.com/aime-team/pytorch-benchmarks.git
-run
-python3 main.py --num_gpus 2 --compile --model bert-large-uncased --data_name squad --global_batch_size  24
-´´´
-
-The NGC containers is large (20GB) so give time for it to be pulled down.
+    ´´´
+    git clone https://github.com/aime-team/pytorch-benchmarks.git
+    ´´´
+    run
+    ´´´
+    python3 main.py --num_gpus 2 --compile --model bert-large-uncased --data_name squad --global_batch_size  24
+    ´´´
 
 On other operating systems use [this .ini file](https://github.com/ublue-os/bluefin/blob/730f39caae21e48fb91f00010cf0cf8d32ee44bd/dx/usr/share/ublue-os/distrobox/pytorch-nvidia.ini) and run:
 
